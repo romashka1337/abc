@@ -1,0 +1,69 @@
+# vi /opt/scripts/port-speed.sh
+#!/bin/bash
+current_date=$(date)
+user_name=$(whoami)
+domain_name=$(hostname)
+cpu_model=$(lscpu | egrep -m 1 'Model name')
+cpu_architecture=$(lscpu | egrep -m 1 'Architecture')
+cpu_MHz=$(lscpu | egrep -m 1 'CPU MHz')
+cpu_cores=$(lscpu | egrep -m 1 'CPU\(s\)')
+cpu_threads=$(lscpu | egrep -m 1 'Thread')
+ram_all=$(cat /proc/meminfo | egrep -m 1 'MemTotal')
+ram_free=$(cat /proc/meminfo | egrep -m 1 'MemFree')
+hdd_size=$(df --output=size -h "$PWD" | tail -n1)
+hdd_avail=$(df --output=avail -h "$PWD" | tail -n1)
+hdd_mounted=$(df -h | awk '/\/$/ { print $1 }')
+swap_size=$(free --mega | awk '/^Swap:/ { print $2 }')
+swap_avail=$(free --mega | awk '/^Swap:/ { print $3 }')
+
+echo "Current date: $(echo $current_date | awk '{ print $1, $2, $3, $6 }')"
+echo "User name: $user_name"
+echo "Domain name: $domain_name"
+echo "Processor: "
+echo "	$cpu_model"
+echo "	$cpu_architecture"
+echo "	$cpu_MHz"
+echo "	$cpu_cores"
+echo "	$cpu_threads"
+echo "RAM: "
+echo "	$ram_all"
+echo "	$ram_free"
+echo "HDD: "
+echo "	HDD size:	$hdd_size"
+echo "	HDD available:	$hdd_avail"
+echo "	mounted to /:	$hdd_mounted"
+echo "	swap size:	$swap_size mB"
+echo "	swap available:	$swap_avail mB"
+
+tmp=$(ip -br a)
+count=$(echo $tmp | awk '{printf "%.0f\n", NF / 4 + .5}')
+echo -e "number of network interfaces:\t$count"
+for it in $(seq 1 $count)
+do
+	inf_1=$(echo $tmp | awk '{ print $1 }')
+	inf_2=$(echo $tmp | awk '{ print $2 }')
+	inf_3=$(echo $tmp | awk '{ print $3 }')
+	inf_4=$(echo $tmp | awk '{ print $4 }')
+	if [ $inf_2 = 'DOWN' ];
+	then
+		echo -e "$it\t$inf_1"
+		temp=$(echo $tmp | awk '{ $1=""; $2=""; print $0}')
+		tmp=$temp
+	elif [ $inf_2 = 'UP' ];
+	then
+		if [ $(echo $tmp | awk '/^e/ { print $1 }') ];
+		then
+			echo -e "$it\t$inf_1\t$inf_4\t$inf_3\t$(ethtool $inf_1 | grep "Speed:")" 
+			temp=$(echo $tmp | awk '{ $1=""; $2=""; $3=""; $4=""; print $0}')
+			tmp=$temp
+		else
+			echo -e "$it\t$inf_1\t$inf_4\t$inf_3\t$(echo $(iwconfig $inf_1 | grep "Bit Rate") | awk '{ print $1, $2, $3 }')"
+			temp=$(echo $tmp | awk '{ $1=""; $2=""; $3=""; $4=""; print $0}')
+			tmp=$temp
+		fi
+	else
+		echo -e "$it\t$inf_1\t$inf_4\t$inf_3"
+		temp=$(echo $tmp | awk '{ $1=""; $2=""; $3=""; $4=""; print $0}')
+		tmp=$temp
+	fi
+done
