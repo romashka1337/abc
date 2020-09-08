@@ -14,7 +14,7 @@ hdd_size=$(df --output=size -h "$PWD" | tail -n1)
 hdd_avail=$(df --output=avail -h "$PWD" | tail -n1)
 hdd_mounted=$(df -h | awk '/\/$/ { print $1 }')
 swap_size=$(free --mega | awk '/^Swap:/ { print $2 }')
-swap_avail=$(free --mega | awk '/^Swap:/ { print $3 }')
+swap_avail=$(free --mega | awk '/^Swap:/ { print $4 }')
 
 echo "Current date: $(echo $current_date | awk '{ print $1, $2, $3, $6 }')"
 echo "User name: $user_name"
