@@ -1,4 +1,3 @@
-# vi /opt/scripts/port-speed.sh
 #!/bin/bash
 current_date=$(date)
 user_name=$(whoami)
