@@ -3,13 +3,13 @@
 current_date=$(date)
 user_name=$(whoami)
 domain_name=$(hostname)
-cpu_model=$(lscpu | egrep -m 1 'Model name')
-cpu_architecture=$(lscpu | egrep -m 1 'Architecture')
-cpu_MHz=$(lscpu | egrep -m 1 'CPU MHz')
-cpu_cores=$(lscpu | egrep -m 1 'CPU\(s\)')
-cpu_threads=$(lscpu | egrep -m 1 'Thread')
-ram_all=$(cat /proc/meminfo | egrep -m 1 'MemTotal')
-ram_free=$(cat /proc/meminfo | egrep -m 1 'MemFree')
+cpu_model=$(lscpu | echo $(egrep -m 1 'Model name') | awk '{ print $3, $4}')
+cpu_architecture=$(lscpu | echo $(egrep -m 1 'Architecture') | awk '{ print $2}')
+cpu_MHz=$(lscpu | echo $(egrep -m 1 'CPU MHz') | awk '{ print $3}')
+cpu_cores=$(lscpu | echo $(egrep -m 1 'CPU\(s\)') | awk '{ print $2}')
+cpu_threads=$(lscpu | echo $(egrep -m 1 'Thread') | awk '{ print $4}')
+ram_all=$(cat /proc/meminfo | echo $(egrep -m 1 'MemTotal') | awk '{ print $2, $3}')
+ram_free=$(cat /proc/meminfo | echo $(egrep -m 1 'MemFree') | awk '{ print $2, $3}')
 hdd_size=$(df --output=size -h "$PWD" | tail -n1)
 hdd_avail=$(df --output=avail -h "$PWD" | tail -n1)
 hdd_mounted=$(df -h | awk '/\/$/ { print $1 }')
@@ -20,14 +20,14 @@ echo "Current date: $(echo $current_date | awk '{ print $1, $2, $3, $6 }')"
 echo "User name: $user_name"
 echo "Domain name: $domain_name"
 echo "Processor: "
-echo "	$cpu_model"
-echo "	$cpu_architecture"
-echo "	$cpu_MHz"
-echo "	$cpu_cores"
-echo "	$cpu_threads"
+echo "	Model:		$cpu_model"
+echo "	Architecture:	$cpu_architecture"
+echo "	CPU MHz:	$cpu_MHz"
+echo "	CPUs:		$cpu_cores"
+echo "	Threads per core:	$cpu_threads"
 echo "RAM: "
-echo "	$ram_all"
-echo "	$ram_free"
+echo "	Total:	$ram_all"
+echo "	Free:	$ram_free"
 echo "HDD: "
 echo "	HDD size:	$hdd_size"
 echo "	HDD available:	$hdd_avail"
