@@ -28,9 +28,9 @@ void work(std::vector<T> tests, long long number_of_tests, long long power) {
 		(number_of_tests - 1);
 	long double abs_error = sqrt(variance), rel_error = abs_error * 100 / average_time;
 	out.precision(7);
-	out << std::fixed << pmodel << ";pow" << power << ";" << typeid(tests[0]).name()
-		<< ";" << opt << ";" << number_of_tests << ";" << std::log2(power) << ";" << total_time
-		<< ";" << average_time << ";" << abs_error << ";" << rel_error << ";" << performance
+	out << std::fixed << pmodel << ",pow" << power << "," << typeid(tests[0]).name()
+		<< "," << opt << "," << number_of_tests << "," << std::log2(power) << "," << total_time
+		<< "," << average_time << "," << abs_error << "," << rel_error << "," << performance
 		<< std::endl;
 }
 
