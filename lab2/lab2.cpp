@@ -32,6 +32,13 @@ void work(std::vector<T> tests, long long number_of_tests, long long power) {
 		<< "," << opt << "," << number_of_tests << "," << std::log2(power) << "," << total_time
 		<< "," << average_time << "," << abs_error << "," << rel_error << "," << performance
 		<< std::endl;
+	std::cout << std::setw(13) << "pow" + std::to_string(power) << std::setw(7) << typeid(tests[0]).name()
+		<< std::setw(4) << opt << std::setw(9) << number_of_tests << " ";
+	int diag = ceil(performance / 1e6);
+	diag /= 5;
+	diag--;
+	for (auto it = 0; it < diag; ++it) std::cout << "|";
+	std::cout << std::endl;
 }
 
 template<typename T>
@@ -62,3 +69,11 @@ int main(int argc, char *argv[]) {
 	create_vectors<long>(number_of_tests_1, number_of_tests_2, number_of_tests_3);
 	return 0;
 }
+/*
+Task	     OpType	Opt	LNum	0112233445566778899111111111111111111112222222
+								5050505050505050505001122334455667788990011223
+								___________________050505050505050505050505050
+pow1000000   e		O0	999999	||
+pow10000000	 e		O0	999999	|||
+pow100000000 e		O0	999999	||||
+*/
