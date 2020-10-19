@@ -71,8 +71,8 @@ unset autoscale x
 set output "p3/data_abs_err_blocksize.png"
 plot 'data/p2_write_ram_abs_err.data' u 2:1 t 'write ram abs err' w lp lc 0, \
 	'data/p2_read_ram_abs_err.data' u 2:1 t 'read ram abs err' w lp lc 1, \
-	'data/p2_write_hdd_abs_err.data' u 2:1 t 'write flash abs err' w lp lc 2, \
-	'data/p2_read_hdd_abs_err.data' u 2:1 t 'read flash abs err' w lp lc 3, \
+	'data/p2_write_hdd_abs_err.data' u 2:1 t 'write hdd abs err' w lp lc 2, \
+	'data/p2_read_hdd_abs_err.data' u 2:1 t 'read hdd abs err' w lp lc 3, \
 	'data/p2_write_flash_abs_err.data' u 2:1 t 'write flash abs err' w lp lc 4, \
 	'data/p2_read_flash_abs_err.data' u 2:1 t 'read flash abs err' w lp lc 5
 
@@ -93,8 +93,8 @@ unset autoscale x
 set output "p3/data_rel_err_blocksize.png"
 plot 'data/p2_write_ram_rel_err.data' u 2:1 t 'write ram rel err' w lp lc 0, \
 	'data/p2_read_ram_rel_err.data' u 2:1 t 'read ram rel err' w lp lc 1, \
-	'data/p2_write_hdd_rel_err.data' u 2:1 t 'write flash rel err' w lp lc 2, \
-	'data/p2_read_hdd_rel_err.data' u 2:1 t 'read flash rel err' w lp lc 3, \
+	'data/p2_write_hdd_rel_err.data' u 2:1 t 'write hdd rel err' w lp lc 2, \
+	'data/p2_read_hdd_rel_err.data' u 2:1 t 'read hdd rel err' w lp lc 3, \
 	'data/p2_write_flash_rel_err.data' u 2:1 t 'write flash rel err' w lp lc 4, \
 	'data/p2_read_flash_rel_err.data' u 2:1 t 'read flash rel err' w lp lc 5
 
