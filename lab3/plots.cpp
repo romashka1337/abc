@@ -161,28 +161,28 @@ int main(int argc, char *argv[]) {
 	}
 	out_csv.close();
 	in.close();
-	// in.open("p2.csv", std::ios_base::in);
-	// out_csv.open("p3/p4_table.csv", std::ios_base::out);
-	// out_csv << "MemoryType,ElementType,WriteBandwidth,ReadBandwidth\n";
-	// count = 0;
-	// int temp = 0, temp1 = 0;
-	// int a; long b; long long c = 1e12;
-	// for (auto& row : CSVRange(in)) {
-	// 	if (count < 241) {
-	// 		++count;
-	// 		continue;
-	// 	} else if (temp == 9) {
-	// 		if (row[2] == "i")
-	// 		out_csv << row[0] << "," << sizeof(a) << "," << row[8] << "," << row[13] << std::endl;
-	// 		if (row[2] == "l")
-	// 		out_csv << row[0] << "," << sizeof(b) << "," << row[8] << "," << row[13] << std::endl;
-	// 		if (row[2] == "x")
-	// 		out_csv << row[0] << "," << sizeof(c) << "," << row[8] << "," << row[13] << std::endl;
-	// 		temp = 0;
-	// 	} else ++temp;
-	// }
-	// out_csv.close();
-	// in.close();
+	in.open("p2.csv", std::ios_base::in);
+	out_csv.open("p3/p4_table.csv", std::ios_base::out);
+	out_csv << "MemoryType,ElementType,WriteBandwidth,ReadBandwidth\n";
+	count = 0;
+	int temp = 0, temp1 = 0;
+	int a; long b; long long c = 1e12;
+	for (auto& row : CSVRange(in)) {
+		if (count < 241) {
+			++count;
+			continue;
+		} else if (temp == 9) {
+			if (row[2] == "i")
+			out_csv << row[0] << "," << sizeof(a) << "," << row[8] << "," << row[13] << std::endl;
+			if (row[2] == "l")
+			out_csv << row[0] << "," << sizeof(b) << "," << row[8] << "," << row[13] << std::endl;
+			if (row[2] == "x")
+			out_csv << row[0] << "," << sizeof(c) << "," << row[8] << "," << row[13] << std::endl;
+			temp = 0;
+		} else ++temp;
+	}
+	out_csv.close();
+	in.close();
 	kek("p1.csv", "data/p1_write_ram.data", 21, 8);
 	kek("p1.csv", "data/p1_read_ram.data", 21, 13);
 	kek("p1.csv", "data/p1_write_hdd.data", 11, 8);
