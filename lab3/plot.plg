@@ -1,0 +1,157 @@
+set term pngcairo
+
+##################################################################################
+
+set xlabel "Size (Mb)"
+set ylabel "Write bandwidth (Kb)"
+
+#set y axis urself
+ymin = 1000
+ymax = 4000
+xmin = 0
+xmax = 110
+set yrange [ymin:ymax]
+unset autoscale y
+set xrange [xmin:xmax]
+unset autoscale x
+
+set output "p3/data_ram.png"
+plot 'data/p1_write_ram.data' u 2:1 t 'write ram' w lp lc 0, \
+	'data/p1_read_ram.data' u 2:1 t 'read ram' w lp lc 1
+
+set xlabel "Size (Mb)"
+set ylabel "Write bandwidth (Kb)"
+
+#set y axis urself
+ymin = 0
+ymax = 15
+xmin = 0
+xmax = 110
+set yrange [ymin:ymax]
+unset autoscale y
+set xrange [xmin:xmax]
+unset autoscale x
+
+set output "p3/data_hdd.png"
+plot 'data/p1_write_hdd.data' u 2:1 t 'write hdd' w lp lc 0, \
+	'data/p1_read_hdd.data' u 2:1 t 'read hdd' w lp lc 1
+
+set xlabel "Size (Mb)"
+set ylabel "Write bandwidth (Kb)"
+
+#set y axis urself
+ymin = 0
+ymax = 15
+xmin = 0
+xmax = 110
+set yrange [ymin:ymax]
+unset autoscale y
+set xrange [xmin:xmax]
+unset autoscale x
+
+set output "p3/data_flash.png"
+plot 'data/p1_write_flash.data' u 2:1 t 'write flash' w lp lc 0, \
+	'data/p1_read_flash.data' u 2:1 t 'read flash' w lp lc 1
+
+##################################################################################
+
+set xlabel "Block size"
+set ylabel "Err"
+
+#set y axis urself
+ymin = 0
+ymax = 6
+xmin = 0
+xmax = 110
+set yrange [ymin:ymax]
+unset autoscale y
+set xrange [xmin:xmax]
+unset autoscale x
+
+set output "p3/data_abs_err_blocksize.png"
+plot 'data/p2_write_ram_abs_err.data' u 2:1 t 'write ram abs err' w lp lc 0, \
+	'data/p2_read_ram_abs_err.data' u 2:1 t 'read ram abs err' w lp lc 1, \
+	'data/p2_write_hdd_abs_err.data' u 2:1 t 'write flash abs err' w lp lc 2, \
+	'data/p2_read_hdd_abs_err.data' u 2:1 t 'read flash abs err' w lp lc 3, \
+	'data/p2_write_flash_abs_err.data' u 2:1 t 'write flash abs err' w lp lc 4, \
+	'data/p2_read_flash_abs_err.data' u 2:1 t 'read flash abs err' w lp lc 5
+
+
+set xlabel "Block size"
+set ylabel "Err"
+
+#set y axis urself
+ymin = 0
+ymax = 36
+xmin = 0
+xmax = 110
+set yrange [ymin:ymax]
+unset autoscale y
+set xrange [xmin:xmax]
+unset autoscale x
+
+set output "p3/data_rel_err_blocksize.png"
+plot 'data/p2_write_ram_rel_err.data' u 2:1 t 'write ram rel err' w lp lc 0, \
+	'data/p2_read_ram_rel_err.data' u 2:1 t 'read ram rel err' w lp lc 1, \
+	'data/p2_write_hdd_rel_err.data' u 2:1 t 'write flash rel err' w lp lc 2, \
+	'data/p2_read_hdd_rel_err.data' u 2:1 t 'read flash rel err' w lp lc 3, \
+	'data/p2_write_flash_rel_err.data' u 2:1 t 'write flash rel err' w lp lc 4, \
+	'data/p2_read_flash_rel_err.data' u 2:1 t 'read flash rel err' w lp lc 5
+
+##################################################################################
+
+set xlabel "Launch number"
+set ylabel "Err"
+
+#set y axis urself
+ymin = 0
+ymax = 0.05
+xmin = 0
+xmax = 11
+set yrange [ymin:ymax]
+unset autoscale y
+set xrange [xmin:xmax]
+unset autoscale x
+
+set output "p3/data_abs_err_launch_num.png"
+plot 'data/p3_write_flash_abs_err.data' u 2:1 t 'write abs err' w lp lc 0, \
+	'data/p3_read_flash_abs_err.data' u 2:1 t 'read abs err' w lp lc 2
+
+set xlabel "Launch number"
+set ylabel "Err"
+
+#set y axis urself
+ymin = 0
+ymax = 12
+xmin = 0
+xmax = 11
+set yrange [ymin:ymax]
+unset autoscale y
+set xrange [xmin:xmax]
+unset autoscale x
+
+set output "p3/data_rel_err_launch_num.png"
+plot 'data/p3_write_flash_rel_err.data' u 2:1 t 'write rel err' w lp lc 1, \
+	'data/p3_read_flash_abs_err.data' u 2:1 t 'read rel err' w lp lc 3
+
+##################################################################################
+
+
+set xlabel "Block size"
+set ylabel "Err"
+
+#set y axis urself
+ymin = 0
+ymax = 85
+xmin = 0
+xmax = 10
+set yrange [ymin:ymax]
+unset autoscale y
+set xrange [xmin:xmax]
+unset autoscale x
+
+set output "p3/data_bandwidth_buff_size.png"
+plot 'data/p4_write_hdd.data' u 2:1 t 'write hdd' w lp lc 0, \
+	'data/p4_read_hdd.data' u 2:1 t 'read hdd' w lp lc 1, \
+	'data/p4_write_flash.data' u 2:1 t 'write flash' w lp lc 2, \
+	'data/p4_read_flash.data' u 2:1 t 'read flash' w lp lc 3
