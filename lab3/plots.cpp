@@ -166,12 +166,14 @@ int main(int argc, char *argv[]) {
 	out_csv << "MemoryType,ElementType,WriteBandwidth,ReadBandwidth\n";
 	count = 0;
 	int temp = 0, temp1 = 0;
-	int a; long b; long long c = 1e12;
+	char d; int a; long b; long long c = 1e12;
 	for (auto& row : CSVRange(in)) {
 		if (count < 241) {
 			++count;
 			continue;
 		} else if (temp == 9) {
+			if (row[2] == "c")
+			out_csv << row[0] << "," << sizeof(d) << "," << row[8] << "," << row[13] << std::endl;
 			if (row[2] == "i")
 			out_csv << row[0] << "," << sizeof(a) << "," << row[8] << "," << row[13] << std::endl;
 			if (row[2] == "l")
