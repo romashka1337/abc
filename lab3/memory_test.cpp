@@ -24,7 +24,7 @@ std::pair<long double, long double> file(std::string path, std::vector<T> data, 
 	std::ofstream out(path, std::ios_base::out | std::ios_base::binary);
 	for (auto _ : data) {
 		auto start = std::chrono::system_clock::now();
-		out.write(reinterpret_cast<const char *>(&_), sizeof(int));
+		out.write(reinterpret_cast<const char *>(&_), sizeof(_));
 		auto end = std::chrono::system_clock::now();
 		std::chrono::duration<long double> difference = end - start;
 		total_write_time += difference.count();
