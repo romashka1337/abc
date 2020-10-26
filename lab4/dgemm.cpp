@@ -4,6 +4,8 @@
 #include <random>
 #include <string>
 #include <cmath>
+#include <iomanip>
+#include <fstream>
 
 unsigned long dim;
 unsigned short opt;
@@ -18,6 +20,8 @@ long double dgemm(std::vector<std::vector<double>>& a, std::vector<std::vector<d
 				c[it][jt] += a[it][et] * b[et][jt];
 	auto end = std::chrono::system_clock::now();
 	std::chrono::duration<long double> difference = end - start;
+	std::ofstream out("opt_0", std::ios_base::app);
+	out << std::fixed << difference.count() << "\t" << dim << std::endl;
 	return difference.count();
 }
 
@@ -30,6 +34,8 @@ long double dgemm_opt_1(std::vector<std::vector<double>>& a, std::vector<std::ve
 				c[it][jt] += a[it][et] * b[et][jt];
 	auto end = std::chrono::system_clock::now();
 	std::chrono::duration<long double> difference = end - start;
+	std::ofstream out("opt_1", std::ios_base::app);
+	out << std::fixed << difference.count() << "\t" << dim << std::endl;
 	return difference.count();
 }
 
@@ -45,32 +51,12 @@ long double dgemm_opt_2(std::vector<double>& a, std::vector<double>& b, std::vec
 								 b[(et0 + et) * dim + jt0 + jt];
 	auto end = std::chrono::system_clock::now();
 	std::chrono::duration<long double> difference = end - start;
-	return difference.count();
-}
-
-long double dgemm_opt_3(std::vector<std::vector<double>>& __restrict__ a,
-		std::vector<std::vector<double>>& __restrict__ b, std::vector<std::vector<double>>& __restrict__ c) {
-	auto start = std::chrono::system_clock::now();
-	// for (size_t i = 0; i < dim; ++i) {
-	// 	for (size_t j = 0; j < dim; j += dim) {
-	// 		std::vector<double> c_ij = a[i][0] * std::vector<double>(&b[0][0], dim);
-	// 		for (size_t k = 1; k < dim; ++k) {
-	// 			c_ij += a[i][k] * std::vector<double>(&b[k][0], dim);
-	// 		}
-	// 	}
-	// }
-	for (unsigned long it = 0; it < a.size(); ++it)
-		for (unsigned long et = 0; et < a.size(); ++et)
-	// #pragma GCC ivdep
-			for (unsigned long jt = 0; jt < a.size(); ++jt)
-				c[it][jt] += a[it][et] * b[et][jt];
-	auto end = std::chrono::system_clock::now();
-	std::chrono::duration<long double> difference = end - start;
+	std::ofstream out("opt_2", std::ios_base::app);
+	out << std::fixed << difference.count() << "\t" << dim << std::endl;
 	return difference.count();
 }
 
 int main(int argc, char *argv[]) {
-	// std::cout << sizeof(double) << std::endl;
 	dim = std::stol(std::string(argv[1]));
 	opt = std::stol(std::string(argv[2]));
 	bs = std::stol(std::string(argv[3]));
@@ -97,7 +83,5 @@ int main(int argc, char *argv[]) {
 		time = dgemm_opt_1(a, b, c);
 	else if (opt == 2)
 		time = dgemm_opt_2(a0, b0, c0);
-	else if (opt == 3)
-		time = dgemm_opt_3(a, b, c);
 	std::cout << time << std::endl;
 }

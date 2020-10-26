@@ -1,0 +1,11 @@
+
+ Performance counter stats for './dgemm_opt_3 512':
+
+           550,002      cache-misses                                                
+
+       0.253411071 seconds time elapsed
+
+       0.242072000 seconds user
+       0.007808000 seconds sys
+
+

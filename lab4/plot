@@ -1,0 +1,41 @@
+set term pngcairo
+
+##################################################################################
+
+set xlabel "matrix dimension"
+set ylabel "time"
+
+#set y axis urself
+ymin = 0
+ymax = 600
+xmin = 512
+xmax = 2560
+set yrange [ymin:ymax]
+unset autoscale y
+set xrange [xmin:xmax]
+unset autoscale x
+
+set output "times.png"
+plot 'opt_0' u 2:1 t 'opt_0' w lp lc 0, \
+	'opt_1' u 2:1 t 'opt_1' w lp lc 1, \
+	'opt_2' u 2:1 t 'opt_2' w lp lc 2, \
+	'opt_3' u 2:1 t 'opt_3' w lp lc 3
+
+##################################################################################
+
+set xlabel "opt type"
+set ylabel "misses"
+set logscale y
+
+#set y axis urself
+ymin = 300000
+ymax = 20000000
+xmin = 0
+xmax = 4
+set yrange [ymin:ymax]
+unset autoscale y
+set xrange [xmin:xmax]
+unset autoscale x
+
+set output "cache_misses.png"
+plot 'misses' u 2:1 t 'misses' ps 3 pt 5

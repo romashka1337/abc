@@ -1,25 +1,28 @@
 #!/bin/bash
 
-# l1d 8192
-# l1i 16384
-# l2 131072
 bs=128
 
-# mkdir data
-# mkdir p3
-
-# sudo apt-get install -y gnuplot
+sudo apt-get install -y gnuplot
 
 g++ -std=c++2a dgemm.cpp -o dgemm
+g++ -std=c++2a -O3 dgemm_opt_3.cpp -o dgemm_opt_3
 
 for it in {512..2048..512}
 do
-	for jt in {0..3..1}
+	for jt in {0..2..1}
 	do
 		./dgemm $it $jt $bs
 	done
+	./dgemm_opt_3 $it
 done
 
-# g++ -std=c++17 plots.cpp -o plots
-# ./plots
-# gnuplot plot.plg
+sudo perf stat -e cache-misses ./dgemm 512 0 128 2> a
+cat a | echo $(egrep -m 1 'cache-misses') | awk '{printf "%s\t0\n", $1}' >> misses
+sudo perf stat -e cache-misses ./dgemm 512 1 128 2> a
+cat a | echo $(egrep -m 1 'cache-misses') | awk '{printf "%s\t1\n", $1}' >> misses
+sudo perf stat -e cache-misses ./dgemm 512 2 128 2> a
+cat a | echo $(egrep -m 1 'cache-misses') | awk '{printf "%s\t2\n", $1}' >> misses
+sudo perf stat -e cache-misses ./dgemm_opt_3 512 2> a
+cat a | echo $(egrep -m 1 'cache-misses') | awk '{printf "%s\t3\n", $1}' >> misses
+
+gnuplot plot
