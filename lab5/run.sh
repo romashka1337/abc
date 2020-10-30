@@ -18,6 +18,4 @@ do
 	./thread$it $dim ${array[1]}
 done
 
-temp=$((${array[1]} + 1))
-
-mpirun --oversubscribe -np $temp ./thread3 $dim $temp
+mpirun --oversubscribe -np ${array[1]} ./thread3 $dim ${array[1]}
