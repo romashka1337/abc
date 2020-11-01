@@ -68,11 +68,6 @@ int main(int argc, char *argv[]) {
 			MPI_Send(c.data(), c.size(), MPI_DOUBLE, process_id, message_tag, MPI_COMM_WORLD);
 		}
 
-		for (it = workers_num * dim / t_num; it < dim; ++it)
-			for (jt = 0; jt < dim; ++jt)
-				for (et = 0; et < dim; ++et)
-					c[it * dim + jt] += a[it * dim + et] * b[et * dim + jt];
-
 		message_tag = WORKER_TAG;
 
 		for (process_id = 1; process_id <= workers_num; ++process_id) {

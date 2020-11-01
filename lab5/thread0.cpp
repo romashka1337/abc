@@ -49,5 +49,9 @@ int main(int argc, char** argv) {
 
 	std::ofstream out("dat/thread0", std::ios_base::app);
 	out << std::fixed << max_t_time << "\t" << t_num << std::endl;
+	if (t_num == 1) {
+		std::ofstream f("comp");
+		f << max_t_time;
+	}
 	return 0;
 }
