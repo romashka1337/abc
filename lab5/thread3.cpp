@@ -83,8 +83,7 @@ int main(int argc, char *argv[]) {
 		std::chrono::duration<long double> difference = end - start;
 		max_t_time = std::max(max_t_time, difference.count());
 
-		std::ofstream out("dat/thread3", std::ios_base::app);
-		out << std::fixed << max_t_time << "\t" << t_num << std::endl;
+		std::cout << max_t_time << "\t" << t_num << std::endl;
 	} 
 	
 	if (process_rank != MASTER_RANK) {

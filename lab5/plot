@@ -1,0 +1,44 @@
+set term pngcairo
+
+##################################################################################
+
+set xlabel "threads"
+set ylabel "speedup"
+
+#set y axis urself
+ymin = 0
+ymax = 3
+xmin = 2
+xmax = 135
+set yrange [ymin:ymax]
+unset autoscale y
+set xrange [xmin:xmax]
+unset autoscale x
+
+set output "512.png"
+plot 'dat/thread0_512' u 2:1 t 'pthread' w lp lc 0, \
+	'dat/thread1_512' u 2:1 t 'openmp' w lp lc 1, \
+	'dat/thread2_512' u 2:1 t 'tbb' w lp lc 2, \
+	'dat/thread3_512' u 2:1 t 'mpi' w lp lc 3, \
+	
+##################################################################################
+
+set xlabel "threads"
+set ylabel "speedup"
+
+#set y axis urself
+ymin = 0
+ymax = 3
+xmin = 2
+xmax = 135
+set yrange [ymin:ymax]
+unset autoscale y
+set xrange [xmin:xmax]
+unset autoscale x
+
+set output "1024.png"
+plot 'dat/thread0_1024' u 2:1 t 'pthread' w lp lc 0, \
+	'dat/thread1_1024' u 2:1 t 'openmp' w lp lc 1, \
+	'dat/thread2_1024' u 2:1 t 'tbb' w lp lc 2, \
+	'dat/thread3_1024' u 2:1 t 'mpi' w lp lc 3, \
+	
